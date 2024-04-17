@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 .counter-up {
     min-height: 50vh;
     gap: 10px;
@@ -8,6 +8,7 @@
     transform: translate(-50%, -50%);
     left: 50%;
     top:50%;
+    font-family:"Varela Round", sans-serif;
 }
 
 .counter-up::before {
@@ -31,10 +32,12 @@
     position: relative;
 }
 
-.box .i {
+.box .icon {
     color: #173753;
-    font-size: 2.5em;
+    width:50px;
+    height:50px;
     text-align: center;
+    
 }
 
 .box .text {
@@ -53,5 +56,15 @@
     place-items: center;
     font-weight: 600;
     font-size: 3em;
+
+}
+
+.box .country {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+    pad: 0.7em 0;
+    font-weight: 700;
+    line-height: 0;
 
 }
