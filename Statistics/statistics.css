@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-.counter-up {
+.counter-up .content {
     min-height: 50vh;
     gap: 10px;
     position: absolute;
@@ -18,7 +18,7 @@
     width: 80vw;
 }
 
-.counter-up .box {
+.counter-up .content .box {
     background-color:#BDFFFD;
     border-bottom: 10px solid #73D2DE;
     width: 35vmin;
@@ -32,7 +32,7 @@
     position: relative;
 }
 
-.box .icon {
+.content .box .icon {
     color: #173753;
     width:50px;
     height:50px;
@@ -40,7 +40,7 @@
     
 }
 
-.box .text {
+.content .box .text {
     color: grey;
     font-size: 1em;
     text-align: center;
@@ -50,7 +50,7 @@
 
 }
 
-.box .counter {
+.content .box .counter {
     color: black;
     display: grid;
     place-items: center;
@@ -59,7 +59,7 @@
 
 }
 
-.box .country {
+.content .box .country {
     color: black;
     font-size: 20px;
     text-align: center;
@@ -80,7 +80,7 @@
 }
 
 @media screen and (max-width: 580px) {
-    .counter-up .box {
+    .counter-up .content .box {
         width: 100%;
     }
 }
