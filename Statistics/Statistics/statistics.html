@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter up Animation on Scroll |Ha ha Ha Ha</title>
+    <link rel="stylesheet" href="statistics.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+   
+</head>
+    <body>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"/>
+        <div class="counter-up ">
+              <div class="box ">
+                  <i class="fas fa-utensils"></i>
+                  <div class="counter ">2000</div>
+                  <span class="text">Meals Delivered</span>
+              </div>
+              <div class="box ">
+                  <i class="fas fa-smile-beam"></i>
+                  <div class="counter">40</div>
+                  <span class="text">Happy Customers</span>
+              </div>
+              <div class="box ">
+                  <i class="fas fa-list"></i>
+                  <div class="counter ">225</div>
+                  <span class="text">Menu Items</span>
+              </div>
+              <div class="box">
+                <i class="fas fa-star"></i>
+                <div class="counter ">1224</div>
+                <span class="text">Five Stars</span>
+                 
+              </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+  $('.counter').counterUp({
+      delay: 10,
+      time: 1200
+  });
+});
+    </script>
+    </body>
+</html>

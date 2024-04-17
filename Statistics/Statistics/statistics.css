@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+.counter-up {
+    min-height: 50vh;
+    gap: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top:50%;
+}
+
+.counter-up::before {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 80vw;
+}
+
+.counter-up .box {
+    background-color:#BDFFFD;
+    border-bottom: 10px solid #73D2DE;
+    width: 35vmin;
+    height: 35vmin;
+    border-radius: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 1em 0;
+    position: relative;
+}
+
+.box .i {
+    color: #173753;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.box .text {
+    color: grey;
+    font-size: 1em;
+    text-align: center;
+    pad: 0.7em 0;
+    font-weight: 400;
+    line-height: 0;
+
+}
+
+.box .counter {
+    color: black;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: 3em;
+
+}
