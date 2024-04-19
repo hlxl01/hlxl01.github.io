@@ -5,6 +5,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    top:500px;
     left:50%;
     font-family:"Varela Round", sans-serif;
 }
