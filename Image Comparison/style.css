@@ -1,6 +1,6 @@
 .img-comp-container {
     position: relative;
-    height: 200px; /*should be the same height as the images*/
+    height: 500px; /*should be the same height as the images*/
   }
   
   .img-comp-img {
@@ -25,4 +25,8 @@
     background-color: #2196F3;
     opacity: 0.7;
     border-radius: 50%;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
   }
