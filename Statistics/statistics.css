@@ -32,8 +32,8 @@
 }
 
 .counter-up .content .box{
-    background-color:#BDFFFD;
-    border-bottom: 10px solid #73D2DE;
+    background-color:#A4D0A4;
+    border-bottom: 10px solid #617A55;
     width: calc(25% - 80px);
     border-radius: 0.5em;
     display: flex;
