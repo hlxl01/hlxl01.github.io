@@ -6,44 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter up Animation on Scroll | Duuuurian</title>
     <link rel="stylesheet" href="statistics.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 </head>
     <body>
-        <div class="counter-up ">
-          <div class="content ">
-              <div class="box ">
-                  <img class="icon" src="area-icon.png"></img>
-                  <div class="counter ">743330</div>
-                  <span class="text">Land Areas <p>(square kilometers)</p></span>
-              </div>
-              <div class="box ">
-                <img class="icon" src="population-people-icon.png"></img>
-                  <div class="counter">17.7</div>
-                  <span class="text">Human Population<p>(million)</p></span>
-              </div>
-              <div class="box ">
-                <img class="icon" src="countries-icon.png"></img>
-                  <span class="country"><p>Malaysia,</p><p>Indonesia,</p><p>Brunei</p></span>
-                  <span class="text">Countries</span>
-              </div>
-              <div class="box">
-                <img class="icon" src="biodiversity-icon.png"></img>
-                <div class="counter">15000</div>
-                <div class="counter">1400</div>
-                <span class="text">Biodiversity <p>(plant species > fauna)</p></span>
-              </div>
+      <div class="counter-up ">
+        <div class="content column-wrap ">
+        <div class="box">
+                <span class="text"><h2>15y-20y</h2></span>
+                <div class="counter ">17</div>
+                <span class="text">percentage (%)</p></span>
+            </div>
+            <div class="box">
+                <span class="text"><h2>21y-34y</h2></span>
+                <div class="counter ">27</div>
+                <span class="text">percentage (%)</p></span>
+            </div>
+            <div class="box">
+                <span class="text"><h2>35y-44y</h2></span>
+                <div class="counter ">23</div>
+                <span class="text">percentage (%)</p></span>
+            </div>
+            <div class="box">
+              <span class="text"><h2>45y-54y</h2></span>
+              <div class="counter ">20</div>
+              <span class="text">percentage (%)</p></span>
           </div>
         </div>
+      </div>
     <script>
+      
+      function showText(id, delay) {
+          var elem = document.getElementById(id);
+          setTimeout(function () {
+              elem.style.opacity = 1;
+          }, delay * 400)
+      }
+      
       $(document).ready(function() {
-  $('.counter').counterUp({
-      delay: 10,
-      time: 1200
-  });
-});
+        $('.counter').counterUp({
+            delay: 10,
+            time: 1200
+        });
+        showText('delayedText1', 1);
+        showText('delayedText2', 2);
+        showText('delayedText3', 3);
+        showText('delayedText4', 4);
+      });
+
     </script>
     </body>
 </html>
