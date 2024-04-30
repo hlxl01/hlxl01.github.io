@@ -47,7 +47,7 @@
 }
 
 .content .box .text {
-    color: grey;
+    color: white;
     font-size: 1em;
     text-align: center;
     padding: 0.7em 0;
@@ -57,7 +57,7 @@
 }
 
 .content .box .counter {
-    color: black;
+    color: #F7E1AE;
     display: grid;
     place-items: center;
     font-weight: 600;
@@ -66,7 +66,7 @@
 }
 
 .content .box .counter-text {
-    color: black;
+    color: #F7E1AE;
     display: grid;
     place-items: center;
     font-weight: 600;
@@ -75,7 +75,7 @@
 }
 
 .content .box .country {
-    color: black;
+    color: #F7E1AE;
     font-size: 30px;
     text-align: center;
     pad: 0.7em 0;
