@@ -1,14 +1,44 @@
-.circular-chart .circle-bg {
-    transition: stroke-dasharray 0.3s, fill 0.3s;
+#sdg-chart path {
+  cursor: pointer;
+  transition: transform 0.3s, fill-opacity 0.3s;
 }
 
-.circular-chart .circle:hover {
-    stroke-dasharray: 30, 100;
-    cursor: pointer;
+#sdg-chart path:hover {
+  fill-opacity: 0.7; /* Increase contrast on hover */
+  transform: scale(1.1); /* Scales up from the center */
+}
+
+#sdg-chart-container {
+  width: 95%;/* Control the size of the chart */
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  position: relative;
+  background-color: antiquewhite;
 }
 
 #sdg-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+#sdg-info.visible {
+  display: block;
+}
+
+#sdg-icon {
+  width: 50px;
+  height: 50px;
+}
+
+#sdg-name {
+  display: block;
+  font-size: 30px;
+  color: black;
+  z-index:555;
 }
