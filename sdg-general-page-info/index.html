@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="sdg-chart">
+            <svg viewBox="0 0 36 36" class="circular-chart">
+                <!-- Example for SDG 1 -->
+                <path class="circle-bg"
+                    d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none" stroke="#ccc" stroke-width="4" stroke-dasharray="25, 100"/>
+                <!-- More paths for other SDGs -->
+            </svg>
+        </div>
+        <div id="sdg-info">
+            <p>SDG Information here. Click arrows or dots to change.</p>
+            <div class="controls">
+                <button onclick="previousSDG()">Previous</button>
+                <button onclick="nextSDG()">Next</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        const sdgData = [
+        { id: 1, title: "No Poverty", details: "SDG Goal 1: End poverty in all its forms everywhere." },
+        { id: 2, title: "Zero Hunger", details: "SDG Goal 2: End hunger, achieve food security and improved nutrition." },
+        // Include all SDGs...
+    ];
+
+    let currentSDG = 0;
+
+    function displaySDG(index) {
+        const sdg = sdgData[index];
+        document.getElementById('sdg-info').innerHTML = `<p><strong>${sdg.title}</strong>: ${sdg.details}</p>
+        <div class="controls">
+            <button onclick="previousSDG()">Previous</button>
+            <button onclick="nextSDG()">Next</button>
+        </div>`;
+    }
+
+    function nextSDG() {
+        currentSDG = (currentSDG + 1) % sdgData.length;
+        displaySDG(currentSDG);
+    }
+
+    function previousSDG() {
+        currentSDG = (currentSDG - 1 + sdgData.length) % sdgData.length;
+        displaySDG(currentSDG);
+    }
+
+    // Initialize
+    displaySDG(currentSDG);
+    </script>
+</html>

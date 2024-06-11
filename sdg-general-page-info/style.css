@@ -1,0 +1,14 @@
+.circular-chart .circle-bg {
+    transition: stroke-dasharray 0.3s, fill 0.3s;
+}
+
+.circular-chart .circle:hover {
+    stroke-dasharray: 30, 100;
+    cursor: pointer;
+}
+
+#sdg-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
