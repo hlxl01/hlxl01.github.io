@@ -1,0 +1,38 @@
+#bar-chart {
+    display: flex;
+    align-items: flex-end;
+    height: 600px; /* Adjust based on maximum bar height */
+    padding: 10px;
+  }
+  
+  .bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:10%; /* Adjust based on preference */
+    margin: 0 10px;
+  }
+  
+  .bar {
+    width: 100%;
+    background-color: #4CAF50;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    animation: grow-bar 2s ease-in-out forwards;
+  }
+  
+  .label {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  @keyframes grow-bar {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(5);
+    }
+  }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="bar-chart">
+            <div class="bar-container">
+              <div class="bar" style="height: 50px;"></div>
+              <div class="label">Label 1</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="height: 75px;"></div>
+              <div class="label">Label 2</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar" style="height: 30px;"></div>
+              <div class="label">Label 3</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar" style="height: 30px;"></div>
+                <div class="label">Label 4</div>
+              </div>
+          </div>
+    </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const data = [
+            { height: 100, label: 'Label 1' },
+            { height: 75, label: 'Label 2' },
+            { height: 40, label: 'Label 3' },
+            { height: 30, label: 'Label 4' }
+        ];
+
+        const chart = document.getElementById('bar-chart');
+        chart.innerHTML = ''; // Clear existing content
+
+        data.forEach(item => {
+            const barContainer = document.createElement('div');
+            barContainer.classList.add('bar-container');
+
+            const bar = document.createElement('div');
+            bar.classList.add('bar');
+            bar.style.height = `${item.height}px`;
+
+            const label = document.createElement('div');
+            label.classList.add('label');
+            label.textContent = item.label;
+
+            barContainer.appendChild(bar);
+            barContainer.appendChild(label);
+            chart.appendChild(barContainer);
+        });
+        });
+    </script>
+</html>
