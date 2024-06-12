@@ -14,6 +14,7 @@
      
     <title>Custom Dropdown Select Menu</title>
 </head>
+
 <body>
     <div class="select-menu">
         <div class="select-btn">
@@ -22,25 +23,23 @@
         </div>
 
         <ul class="options">
-            <li class="option">
+            <li class="option" data-content="counter">
                 <span class="option-text">Counter</span>
             </li>
-            <li class="option">
+            <li class="option" data-content="bar-chart">
                 <span class="option-text">Bar Chart</span>
             </li>
-            <li class="option">
+            <li class="option" data-content="pie-chart">
                 <span class="option-text">Pie Chart</span>
             </li>
         </ul>
     </div>
 
-    <div>
-        <embed class="counter" src="https://hlxl01.github.io/box-statistics/index.html">
-        <embed class="bar-chart" src="https://hlxl01.github.io/barchart-statistics/index.html">
-        <embed class="pie-chart" src="https://hlxl01.github.io/piechart-statistics/index.html">
+    <div class="content-area">
+        <embed class="content" id="counter" style="display: none;" src="https://hlxl01.github.io/box-statistics/index.html">
+        <embed class="content" id="bar-chart" style="display: none;" src="https://hlxl01.github.io/barchart-statistics/index.html">
+        <embed class="content" id="pie-chart" style="display: none;" src="https://hlxl01.github.io/piechart-statistics/index.html">
     </div>
 
     <script src="script.js"></script>
-         
 </body>
-</html>
