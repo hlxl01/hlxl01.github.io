@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+    <h1 style="margin-left:300px; margin-top:100px;">Statistics name</h1>
         <div id="bar-chart">
             <div class="bar-container">
               <div class="bar" style="height: 50px;"></div>
@@ -25,33 +26,37 @@
     </body>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const data = [
-            { height: 100, label: 'Label 1' },
-            { height: 75, label: 'Label 2' },
-            { height: 40, label: 'Label 3' },
-            { height: 30, label: 'Label 4' }
-        ];
-
-        const chart = document.getElementById('bar-chart');
-        chart.innerHTML = ''; // Clear existing content
-
-        data.forEach(item => {
-            const barContainer = document.createElement('div');
-            barContainer.classList.add('bar-container');
-
-            const bar = document.createElement('div');
-            bar.classList.add('bar');
-            bar.style.height = `${item.height}px`;
-
-            const label = document.createElement('div');
-            label.classList.add('label');
-            label.textContent = item.label;
-
-            barContainer.appendChild(bar);
-            barContainer.appendChild(label);
-            chart.appendChild(barContainer);
-        });
-        });
-    </script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const data = [
+              { height: 200, label: 'Label 1', color: '#388087', value: '50%' },
+              { height: 75, label: 'Label 2', color: '#6FB3B8', value: '20%' },
+              { height: 40, label: 'Label 3', color: '#BADFE7', value: '10%' },
+              { height: 30, label: 'Label 4', color: '#C2EDCE', value: '30%' }
+          ];
+      
+          const chart = document.getElementById('bar-chart');
+          chart.innerHTML = ''; // Clear existing content
+      
+          data.forEach(item => {
+              const barContainer = document.createElement('div');
+              barContainer.classList.add('bar-container');
+      
+              const bar = document.createElement('div');
+              bar.classList.add('bar');
+              bar.style.height = `${item.height}px`;
+              bar.style.backgroundColor = item.color;
+              bar.setAttribute('data-value', item.value);
+              bar.setAttribute('data-label', item.label);
+      
+              const label = document.createElement('div');
+              label.classList.add('label');
+              label.textContent = item.label;
+      
+              barContainer.appendChild(bar);
+              barContainer.appendChild(label);
+              chart.appendChild(barContainer);
+          });
+      });
+      </script>
+      
 </html>
