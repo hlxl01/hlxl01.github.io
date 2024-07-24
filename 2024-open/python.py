@@ -10,7 +10,7 @@
            print(f"Received: {data}")
 
            # Send data to the website
-           url = "http://your-website.com/data"
+           url = "https://hlxl01.github.io/2024-open/index.html"
            payload = {"sensor_value": data}
            headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
