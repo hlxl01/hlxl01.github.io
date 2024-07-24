@@ -1,0 +1,132 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e0ffe0; /* Light green background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    border: 2px solid #4caf50; /* Green border */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header styles */
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2e7d32; /* Dark green */
+    text-shadow: 1px 1px 2px #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 i {
+    margin: 0 10px;
+}
+
+/* Main section */
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+/* Card styles */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #66bb6a; /* Medium green */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-icon {
+    font-size: 2.5em;
+    color: #ff7043; /* Orange */
+}
+
+.card-content {
+    text-align: left;
+}
+
+.card-content h2 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #388e3c; /* Darker green */
+}
+
+.card-content span {
+    display: block;
+    font-size: 2em;
+    color: #ff7043; /* Orange */
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #555;
+}
+
+/* Footer styles */
+footer {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #2e7d32; /* Dark green */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer i {
+    margin-left: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .card-content h2 {
+        font-size: 1.5em;
+    }
+
+    .card-icon {
+        font-size: 2em;
+        margin-right: 10px;
+    }
+
+    .card-content span {
+        font-size: 1.5em;
+    }
+}
