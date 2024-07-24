@@ -1,18 +1,18 @@
-    import serial
-   import requests
+import serial
+import requests
 
-   # Replace 'COM3' with your HC-05 Bluetooth COM port
-   bluetooth_serial = serial.Serial('COM3', 9600)
+# Replace 'COM3' with your Bluetooth COM port
+bluetooth_serial = serial.Serial('COM3', 9600)
 
-   while True:
-       if bluetooth_serial.in_waiting > 0:
-           data = bluetooth_serial.readline().decode('utf-8').strip()
-           print(f"Received: {data}")
+url = "http://localhost:3000/update"
+headers = {'Content-Type': 'application/json'}
 
-           # Send data to the website
-           url = "https://hlxl01.github.io/2024-open/index.html"
-           payload = {"sensor_value": data}
-           headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+while True:
+    if bluetooth_serial.in_waiting > 0:
+        data = bluetooth_serial.readline().decode('utf-8').strip()
+        print(f"Received: {data}")
 
-           response = requests.post(url, data=payload, headers=headers)
-           print(f"Response: {response.text}")
+        payload = {"type": "sensorValue", "value": data}
+        
+        response = requests.post(url, json=payload, headers=headers)
+        print(f"Response: {response.text}")

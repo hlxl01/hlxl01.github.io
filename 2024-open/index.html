@@ -28,6 +28,13 @@
                         <span id="fanCount">0</span>
                     </div>
                 </div>
+                <div class="card">
+                    <i class="fas fa-thermometer-half card-icon"></i>
+                    <div class="card-content">
+                        <h2>Sensor Value:</h2>
+                        <span id="sensorValue">0</span>
+                    </div>
+                </div>
             </div>
         </main>
         <footer>
@@ -41,6 +48,7 @@
                 const data = await response.json();
                 document.getElementById('waterSprayCount').innerText = data.waterSpray;
                 document.getElementById('fanCount').innerText = data.fans;
+                document.getElementById('sensorValue').innerText = data.sensorValue;
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
