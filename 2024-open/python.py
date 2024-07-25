@@ -2,7 +2,7 @@ import serial
 import requests
 
 # Replace 'COM3' with your correct Bluetooth COM port
-bluetooth_serial = serial.Serial('COM3', 9600)
+bluetooth_serial = serial.Serial('COM4', 9600)
 
 url = "http://localhost:3000/update"
 headers = {'Content-Type': 'application/json'}
