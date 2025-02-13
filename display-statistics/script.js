@@ -1,29 +1,30 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const optionMenu = document.querySelector(".select-menu"),
-          selectBtn = optionMenu.querySelector(".select-btn"),
-          options = optionMenu.querySelectorAll(".option"),
-          contents = document.querySelectorAll(".content");
+document.addEventListener("DOMContentLoaded", function () {
+    const selectBtn = document.querySelector(".select-btn");
+    const sBtnText = document.querySelector(".sBtn-text");
+    const options = document.querySelectorAll(".option");
+    const contents = document.querySelectorAll(".content");
 
-    selectBtn.addEventListener("click", () => {
-        console.log("Dropdown toggled");
-        optionMenu.classList.toggle("active");
-    });
+    // Set default active content
+    let activeContent = document.getElementById("counter"); // Default
+    sBtnText.innerText = "Counter"; // Update button text
+    activeContent.style.display = "block";
 
     options.forEach(option => {
         option.addEventListener("click", () => {
-            const contentId = option.getAttribute("data-content");
-            console.log(`Option clicked: ${contentId}`);
+            let selected = option.getAttribute("data-content");
 
+            // Hide all contents
             contents.forEach(content => {
-                if (content.id === contentId) {
-                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-                    console.log(`Displaying: ${contentId}`);
-                } else {
-                    content.style.display = 'none';
-                }
+                content.style.display = "none";
             });
 
-            optionMenu.classList.remove("active");
+            // Show selected content
+            let selectedContent = document.getElementById(selected);
+            if (selectedContent) {
+                selectedContent.style.display = "block";
+            }
+
+            sBtnText.innerText = option.innerText;
         });
     });
 });
