@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orang Ulu Pattern Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS — High Contrast Traditional
+   ============================================================ */
+:root {
+  --bone:     #FFFDF2;   /* main background */
+  --gold:     #FFB800;   /* primary buttons, active states */
+  --black:    #000000;   /* borders, text, canvas outline */
+  --crimson:  #8B0000;   /* hover, links, secondary */
+  --gold-dim: rgba(255,184,0,0.12);
+  --gold-med: rgba(255,184,0,0.25);
+  --crimson-dim: rgba(139,0,0,0.08);
+  --panel:    #FDFAF0;   /* sidebar panels */
+  --muted:    #6B6454;
+  --border:   rgba(0,0,0,0.12);
+  --border-dark: rgba(0,0,0,0.25);
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bone);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   TOP ACCENT BAR
+   ============================================================ */
+.accent-bar {
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold) 0, var(--gold) 10px,
+    var(--black) 10px, var(--black) 20px,
+    var(--crimson) 20px, var(--crimson) 30px,
+    var(--bone) 30px, var(--bone) 40px
+  );
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--bone);
+  border-bottom: 2px solid var(--black);
+  height: 58px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+.logo-text h1 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--black);
+  line-height: 1.2;
+}
+.logo-text p {
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.header-steps {
+  display: flex;
+  gap: 4px;
+}
+.hstep {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1.5px solid transparent;
+  cursor: default;
+  transition: all 0.25s;
+}
+.hstep.active {
+  color: var(--black);
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+.hstep .snum {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
+main {
+  display: grid;
+  grid-template-columns: 255px 1fr 275px;
+  height: calc(100vh - 63px);
+}
+
+/* ============================================================
+   SHARED PANEL STYLES
+   ============================================================ */
+.panel-title {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 11px 16px 9px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+/* ============================================================
+   LEFT PANEL
+   ============================================================ */
+.left-panel {
+  background: var(--panel);
+  border-right: 2px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Mode toggle */
+.mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.mode-btn {
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 7px 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.mode-btn.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+.mode-btn:not(.active):hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+}
+
+/* ---- Heritage Library (LEFT PANEL) ---- */
+.heritage-library {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px 12px;
+}
+.heritage-library::-webkit-scrollbar { width: 3px; }
+.heritage-library::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+.lib-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  min-height: 120px;
+  color: var(--muted);
+  text-align: center;
+  padding: 20px;
+}
+.lib-empty svg { opacity: 0.3; }
+.lib-empty p { font-size: 0.75rem; line-height: 1.6; }
+
+.lib-section-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 10px 0 6px;
+}
+.pattern-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+/* Saved library cards */
+.lib-card {
+  aspect-ratio: 1;
+  background: var(--bone);
+  border: 2px solid var(--border-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.lib-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 10px rgba(255,184,0,0.2);
+}
+.lib-card.selected {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+}
+.lib-card canvas {
+  width: 80%;
+  height: 80%;
+  display: block;
+}
+.lib-card-name {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 2px 4px;
+  background: rgba(255,253,242,0.9);
+  width: 100%;
+  text-align: center;
+}
+.lib-card-del {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 16px;
+  height: 16px;
+  background: var(--crimson);
+  color: white;
+  font-size: 0.55rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+.lib-card:hover .lib-card-del { display: flex; }
+
+/* ---- Draw Tools (LEFT PANEL) ---- */
+#drawToolsPanel {
+  flex: 1;
+  padding: 10px 12px;
+  display: none;
+  flex-direction: column;
+  gap: 9px;
+  overflow-y: auto;
+}
+.tool-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.tool-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  width: 50px;
+  flex-shrink: 0;
+}
+.tool-btn {
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tool-btn.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+.tool-btn:not(.active):hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+}
+input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 3px;
+  background: var(--border-dark);
+  border-radius: 2px;
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  background: var(--gold);
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.size-val {
+  font-family: 'Outfit', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--black);
+  width: 22px;
+}
+.color-swatches { display: flex; gap: 5px; flex-wrap: wrap; }
+.swatch {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.swatch:hover { transform: scale(1.2); }
+.swatch.active { border-color: var(--black); transform: scale(1.15); }
+
+.draw-action-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   CENTRE CANVAS AREA
+   ============================================================ */
+.canvas-area {
+  display: flex;
+  flex-direction: column;
+  background: #F5F2E8;
+  position: relative;
+}
+
+/* Toolbar */
+.canvas-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--bone);
+  border-bottom: 1.5px solid var(--black);
+  flex-wrap: wrap;
+}
+.ctb-btn {
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 5px 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ctb-btn:hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+}
+.ctb-btn.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+  font-weight: 700;
+}
+.ctb-btn.primary:hover {
+  background: #E6A600;
+  border-color: #E6A600;
+  color: var(--black);
+}
+.ctb-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--border-dark);
+  margin: 0 3px;
+}
+.ctb-label {
+  margin-left: auto;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* Canvas wrap */
+.canvas-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+#mainCanvas {
+  background: #FFFFFF;
+  cursor: crosshair;
+  border: 2px solid var(--black);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  transform-origin: center center;
+}
+.canvas-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: var(--muted);
+  pointer-events: none;
+  transition: opacity 0.4s;
+  white-space: nowrap;
+  background: rgba(255,253,242,0.85);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   RIGHT PANEL
+   ============================================================ */
+.right-panel {
+  background: var(--panel);
+  border-left: 2px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* G-Code section */
+.gcode-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-dark);
+}
+.gcode-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.gcode-title {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.gcode-actions { display: flex; gap: 5px; }
+.gcode-btn {
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 4px 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.gcode-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+
+.gcode-box {
+  flex: 1;
+  background: #FAFAF5;
+  border: 1.5px solid var(--border-dark);
+  padding: 10px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.gcode-box::-webkit-scrollbar { width: 3px; }
+.gcode-box::-webkit-scrollbar-thumb { background: var(--muted); }
+.gcode-line-comment { color: #9A9080; }
+.gcode-line-move { color: #2A7A2A; font-weight: 600; }
+.gcode-line-cmd { color: var(--crimson); font-weight: 600; }
+
+/* Generate button */
+.gen-btn-row {
+  margin-top: 8px;
+}
+.gen-btn {
+  width: 100%;
+  background: var(--gold);
+  border: 2px solid var(--black);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gen-btn:hover {
+  background: #E6A600;
+  box-shadow: 3px 3px 0 var(--black);
+  transform: translate(-1px, -1px);
+}
+.gen-btn:active {
+  transform: translate(0,0);
+  box-shadow: none;
+}
+
+/* Send section */
+.send-section {
+  padding: 12px 14px;
+  border-top: 1px solid var(--border-dark);
+}
+.send-panel-label {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.esp-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.esp-row input {
+  flex: 1;
+  background: var(--bone);
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  padding: 6px 9px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.esp-row input:focus { border-color: var(--gold); }
+.esp-row input::placeholder { color: var(--muted); }
+.send-btn {
+  width: 100%;
+  background: transparent;
+  border: 2px solid var(--black);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.send-btn:hover:not(:disabled) {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  color: white;
+}
+.send-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.send-status {
+  margin-top: 6px;
+  font-size: 0.68rem;
+  text-align: center;
+  color: var(--muted);
+  min-height: 16px;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--bone);
+  border: 2px solid var(--black);
+  padding: 28px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 6px 6px 0 var(--black);
+}
+.modal-icon { font-size: 2rem; margin-bottom: 10px; }
+.modal h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.modal p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.modal input[type=text] {
+  width: 100%;
+  background: white;
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  outline: none;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.modal input[type=text]:focus { border-color: var(--gold); }
+.modal-btns { display: flex; gap: 8px; justify-content: center; }
+.modal-btn {
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  color: var(--black);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.modal-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+.modal-btn.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+.modal-btn.primary:hover { background: #E6A600; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  color: var(--bone);
+  padding: 9px 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  border-left: 4px solid var(--gold);
+}
+.toast.show { opacity: 1; }
+
+/* Scrollbar global */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+
+<header>
+  <div class="logo">
+    <svg class="logo-icon" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="17,2 32,9 32,25 17,32 2,25 2,9" fill="none" stroke="#000" stroke-width="1.8"/>
+      <polygon points="17,7 27,12 27,22 17,27 7,22 7,12" fill="none" stroke="#FFB800" stroke-width="1.2"/>
+      <circle cx="17" cy="17" r="4" fill="#FFB800"/>
+      <circle cx="17" cy="5"  r="2" fill="#8B0000"/>
+      <circle cx="17" cy="29" r="2" fill="#8B0000"/>
+      <circle cx="5"  cy="11" r="2" fill="#8B0000"/>
+      <circle cx="29" cy="11" r="2" fill="#8B0000"/>
+    </svg>
+    <div class="logo-text">
+      <h1>Orang Ulu Pattern Studio</h1>
+      <p>Cultural Beadwork Automation System · Sarawak</p>
+    </div>
+  </div>
+  <div class="header-steps">
+    <div class="hstep active" id="step1"><span class="snum">1</span> Draw</div>
+    <div class="hstep" id="step2"><span class="snum">2</span> Save</div>
+    <div class="hstep" id="step3"><span class="snum">3</span> G-Code</div>
+    <div class="hstep" id="step4"><span class="snum">4</span> Send</div>
+  </div>
+</header>
+
+<main>
+  <!-- ===== LEFT PANEL — Heritage Library ===== -->
+  <div class="left-panel">
+    <div class="panel-title">Heritage Library</div>
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="modeLibBtn" onclick="setMode('library')">📚 Library</button>
+      <button class="mode-btn" id="modeDrawBtn" onclick="setMode('draw')">✏️ Draw</button>
+    </div>
+
+    <!-- LIBRARY PANEL -->
+    <div id="libraryPanel" class="heritage-library">
+      <div id="libEmpty" class="lib-empty">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect x="8" y="8" width="32" height="32" rx="2" stroke="#000" stroke-width="1.5"/>
+          <path d="M16 24h16M24 16v16" stroke="#000" stroke-width="1.5"/>
+        </svg>
+        <p>Library is empty.<br>Draw a motif and click<br><strong>Save to Library</strong> to add it here.</p>
+      </div>
+      <div id="libGrid" class="pattern-grid" style="display:none;"></div>
+    </div>
+
+    <!-- DRAW TOOLS PANEL -->
+    <div id="drawToolsPanel" style="display:none; flex:1; padding:10px 12px; flex-direction:column; gap:9px; overflow-y:auto;">
+      <div class="tool-row">
+        <span class="tool-label">Tool</span>
+        <button class="tool-btn active" id="toolPen" onclick="setTool('pen')">✏ Pen</button>
+        <button class="tool-btn" id="toolLine" onclick="setTool('line')">╱ Line</button>
+        <button class="tool-btn" id="toolEraser" onclick="setTool('eraser')">⬜ Erase</button>
+      </div>
+      <div class="tool-row">
+        <span class="tool-label">Size</span>
+        <input type="range" min="1" max="20" value="3" id="brushSize" oninput="updateBrushSize(this.value)">
+        <span class="size-val" id="brushSizeVal">3</span>
+      </div>
+      <div class="tool-row">
+        <span class="tool-label">Color</span>
+        <div class="color-swatches" id="colorSwatches">
+          <div class="swatch active" style="background:#000000" onclick="setColor('#000000',this)"></div>
+          <div class="swatch" style="background:#8B0000" onclick="setColor('#8B0000',this)"></div>
+          <div class="swatch" style="background:#FFB800" onclick="setColor('#FFB800',this)"></div>
+          <div class="swatch" style="background:#2A6B6E" onclick="setColor('#2A6B6E',this)"></div>
+          <div class="swatch" style="background:#5A3A8A" onclick="setColor('#5A3A8A',this)"></div>
+          <div class="swatch" style="background:#2A5A2A" onclick="setColor('#2A5A2A',this)"></div>
+        </div>
+      </div>
+      <div class="draw-action-row">
+        <button class="tool-btn" onclick="undoCanvas()">↩ Undo</button>
+        <button class="tool-btn" onclick="clearCanvas()">🗑 Clear</button>
+        <button class="tool-btn" id="mirrorBtn" onclick="toggleMirror()">⊕ Mirror</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CENTRE CANVAS ===== -->
+  <div class="canvas-area">
+    <div class="canvas-toolbar">
+      <button class="ctb-btn" onclick="zoomIn()">＋ Zoom</button>
+      <button class="ctb-btn" onclick="zoomOut()">－ Zoom</button>
+      <div class="ctb-sep"></div>
+      <button class="ctb-btn primary" onclick="saveToLibrary()">💾 Save to Library</button>
+      <div class="ctb-sep"></div>
+      <button class="ctb-btn" onclick="exportSVG()">⬇ Export SVG</button>
+      <button class="ctb-btn" onclick="confirmClear()">✕ Reset</button>
+      <span class="ctb-label" id="canvasInfo">500 × 500 px · Library mode</span>
+    </div>
+
+    <div class="canvas-wrap" id="canvasWrap">
+      <canvas id="mainCanvas" width="500" height="500"></canvas>
+      <div class="canvas-hint" id="canvasHint">Switch to Draw mode to begin — or load a motif from the Library</div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="right-panel">
+    <div class="panel-title">G-Code Output</div>
+
+    <!-- G-Code area -->
+    <div class="gcode-section">
+      <div class="gcode-header">
+        <span class="gcode-title">⚙ Preview</span>
+        <div class="gcode-actions">
+          <button class="gcode-btn" onclick="copyGCode()">Copy</button>
+          <button class="gcode-btn" onclick="downloadGCode()">⬇ .nc</button>
+        </div>
+      </div>
+      <div class="gcode-box" id="gcodeBox">
+        <span class="gcode-line-comment">; Orang Ulu Pattern Studio</span><br>
+        <span class="gcode-line-comment">; G-code will appear here</span><br>
+        <span class="gcode-line-comment">; after generation.</span><br><br>
+        <span class="gcode-line-comment">; Workflow:</span><br>
+        <span class="gcode-line-comment">; 1. Draw a motif on the canvas</span><br>
+        <span class="gcode-line-comment">; 2. Save to Library</span><br>
+        <span class="gcode-line-comment">; 3. Click Generate G-Code</span><br>
+        <span class="gcode-line-comment">; 4. Send to ESP32 H-Bot</span>
+      </div>
+      <div class="gen-btn-row">
+        <button class="gen-btn" onclick="generateGCode()">▶ Generate G-Code</button>
+      </div>
+    </div>
+
+    <!-- Send to Robot -->
+    <div class="send-section">
+      <div class="send-panel-label">🤖 Send to H-Bot Robot</div>
+      <div class="esp-row">
+        <input type="text" id="espIpInput" placeholder="ESP32 IP (e.g. 192.168.1.42)" value="192.168.1.42">
+      </div>
+      <button class="send-btn" id="sendBtn" onclick="sendToRobot()" disabled>
+        ▶ Send to H-Bot Robot
+      </button>
+      <div class="send-status" id="sendStatus">Generate G-code first, then send.</div>
+    </div>
+  </div>
+</main>
+
+<!-- MODAL (name prompt + confirm) -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-icon" id="modalIcon">💾</div>
+    <h2 id="modalTitle">Save Motif</h2>
+    <p id="modalMsg">Give this motif a name for your Heritage Library.</p>
+    <input type="text" id="modalInput" placeholder="e.g. Aso Motif" style="display:none;">
+    <div class="modal-btns">
+      <button class="modal-btn" onclick="closeModal()">Cancel</button>
+      <button class="modal-btn primary" id="modalConfirm">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+//  STATE
+// ============================================================
+let currentMode    = 'library';
+let currentTool    = 'pen';
+let currentColor   = '#000000';
+let brushSize      = 3;
+let isDrawing      = false;
+let lastX = 0, lastY = 0;
+let lineStartX = 0, lineStartY = 0;
+let canvasHistory  = [];
+let symmetryMode   = false;
+let gcodeReady     = false;
+let gcodeContent   = '';
+let currentZoom    = 1;
+let selectedLibId  = null;
+
+// Vector path storage: array of strokes, each stroke is {color, size, points:[{x,y}], tool:'pen'|'line'}
+let vectorStrokes  = [];
+let currentStroke  = null;
+
+const canvas = document.getElementById('mainCanvas');
+const ctx    = canvas.getContext('2d');
+
+// ============================================================
+//  LIBRARY — localStorage persistence
+// ============================================================
+function loadLibrary() {
+  try {
+    return JSON.parse(localStorage.getItem('ulu_heritage_lib') || '[]');
+  } catch { return []; }
+}
+function saveLibraryStore(lib) {
+  localStorage.setItem('ulu_heritage_lib', JSON.stringify(lib));
+}
+
+function renderLibrarySidebar() {
+  const lib = loadLibrary();
+  const empty = document.getElementById('libEmpty');
+  const grid  = document.getElementById('libGrid');
+
+  if (lib.length === 0) {
+    empty.style.display = 'flex';
+    grid.style.display  = 'none';
+    grid.innerHTML = '';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display  = 'grid';
+  grid.innerHTML = '';
+
+  lib.forEach(entry => {
+    const card = document.createElement('div');
+    card.className = 'lib-card' + (entry.id === selectedLibId ? ' selected' : '');
+    card.dataset.id = entry.id;
+    card.onclick = () => loadFromLibrary(entry.id);
+
+    // Thumbnail canvas
+    const thumb = document.createElement('canvas');
+    thumb.width  = 100;
+    thumb.height = 100;
+    const tc = thumb.getContext('2d');
+    tc.fillStyle = '#fff';
+    tc.fillRect(0,0,100,100);
+    drawStrokesOnCtx(tc, entry.strokes, 100/500);
+    card.appendChild(thumb);
+
+    // Name label
+    const name = document.createElement('div');
+    name.className = 'lib-card-name';
+    name.textContent = entry.name;
+    card.appendChild(name);
+
+    // Delete button
+    const del = document.createElement('button');
+    del.className = 'lib-card-del';
+    del.textContent = '✕';
+    del.title = 'Delete';
+    del.onclick = (e) => {
+      e.stopPropagation();
+      deleteFromLibrary(entry.id);
+    };
+    card.appendChild(del);
+
+    grid.appendChild(card);
+  });
+}
+
+function deleteFromLibrary(id) {
+  let lib = loadLibrary();
+  lib = lib.filter(e => e.id !== id);
+  saveLibraryStore(lib);
+  if (selectedLibId === id) selectedLibId = null;
+  renderLibrarySidebar();
+  showToast('Motif removed from Library');
+}
+
+function loadFromLibrary(id) {
+  const lib = loadLibrary();
+  const entry = lib.find(e => e.id === id);
+  if (!entry) return;
+  selectedLibId = id;
+
+  // Restore strokes
+  vectorStrokes = entry.strokes.map(s => JSON.parse(JSON.stringify(s)));
+
+  // Redraw canvas
+  redrawFromStrokes();
+
+  renderLibrarySidebar();
+  document.getElementById('canvasHint').style.opacity = '0';
+  document.getElementById('canvasInfo').textContent = `${entry.name} · ${vectorStrokes.length} stroke(s)`;
+
+  // Reset gcode
+  resetGCode();
+  setStep(2);
+  showToast(`Loaded: ${entry.name}`);
+}
+
+// ============================================================
+//  SAVE TO LIBRARY
+// ============================================================
+function saveToLibrary() {
+  if (vectorStrokes.length === 0) {
+    showToast('Draw something first before saving');
+    return;
+  }
+  // Show name prompt modal
+  document.getElementById('modalIcon').textContent = '💾';
+  document.getElementById('modalTitle').textContent = 'Save to Heritage Library';
+  document.getElementById('modalMsg').textContent = 'Give this motif a name:';
+  document.getElementById('modalInput').style.display = 'block';
+  document.getElementById('modalInput').value = '';
+  document.getElementById('modalInput').placeholder = 'e.g. Aso Motif';
+  document.getElementById('modalConfirm').textContent = 'Save';
+  document.getElementById('modalConfirm').onclick = () => {
+    const name = document.getElementById('modalInput').value.trim() || 'Unnamed Motif';
+    const lib  = loadLibrary();
+    const entry = {
+      id: 'motif_' + Date.now(),
+      name,
+      strokes: JSON.parse(JSON.stringify(vectorStrokes)),
+      savedAt: new Date().toISOString()
+    };
+    lib.push(entry);
+    saveLibraryStore(lib);
+    closeModal();
+    renderLibrarySidebar();
+    setStep(2);
+    showToast(`"${name}" saved to Library ✓`);
+  };
+  document.getElementById('modalOverlay').classList.add('show');
+  setTimeout(() => document.getElementById('modalInput').focus(), 100);
+}
+
+// Enter key confirms modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('modalOverlay').classList.contains('show')) {
+    document.getElementById('modalConfirm').click();
+  }
+  if (e.key === 'Escape') closeModal();
+});
+
+// ============================================================
+//  INIT
+// ============================================================
+function init() {
+  clearCanvasSilent();
+  setupCanvasEvents();
+  renderLibrarySidebar();
+}
+
+// ============================================================
+//  MODE SWITCHING
+// ============================================================
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('modeLibBtn').classList.toggle('active', mode === 'library');
+  document.getElementById('modeDrawBtn').classList.toggle('active', mode === 'draw');
+  document.getElementById('libraryPanel').style.display   = mode === 'library' ? 'flex' : 'none';
+
+  const dtp = document.getElementById('drawToolsPanel');
+  dtp.style.display = mode === 'draw' ? 'flex' : 'none';
+  dtp.style.flexDirection = 'column';
+
+  const hint = document.getElementById('canvasHint');
+  const info = document.getElementById('canvasInfo');
+
+  if (mode === 'draw') {
+    hint.style.opacity = vectorStrokes.length ? '0' : '1';
+    hint.textContent = 'Draw freely — use tools on the left';
+    info.textContent = `500 × 500 px · Draw mode`;
+    canvas.style.cursor = 'crosshair';
+  } else {
+    hint.textContent = 'Switch to Draw mode to begin — or load a motif from the Library';
+    hint.style.opacity = vectorStrokes.length ? '0' : '1';
+    info.textContent = `500 × 500 px · Library mode`;
+    canvas.style.cursor = 'default';
+  }
+
+  setStep(1);
+}
+
+// ============================================================
+//  CANVAS DRAWING — VECTOR PATH STORAGE
+// ============================================================
+function setupCanvasEvents() {
+  canvas.addEventListener('mousedown',  startDraw);
+  canvas.addEventListener('mousemove',  draw);
+  canvas.addEventListener('mouseup',    endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e.touches[0]); }, {passive:false});
+  canvas.addEventListener('touchmove',  e => { e.preventDefault(); draw(e.touches[0]);       }, {passive:false});
+  canvas.addEventListener('touchend',   endDraw);
+}
+
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const sx = canvas.width  / r.width;
+  const sy = canvas.height / r.height;
+  return [(e.clientX - r.left)*sx, (e.clientY - r.top)*sy];
+}
+
+function startDraw(e) {
+  if (currentMode !== 'draw') return;
+  const [x,y] = getPos(e);
+  isDrawing = true;
+  lastX = x; lastY = y;
+  lineStartX = x; lineStartY = y;
+
+  if (currentTool === 'eraser') {
+    currentStroke = { tool:'eraser', color:'#FFFFFF', size: brushSize*4, points:[{x,y}] };
+  } else if (currentTool === 'pen') {
+    currentStroke = { tool:'pen', color:currentColor, size:brushSize, points:[{x,y}] };
+  } else if (currentTool === 'line') {
+    currentStroke = { tool:'line', color:currentColor, size:brushSize, points:[{x,y},{x,y}] };
+  }
+
+  saveHistory();
+  document.getElementById('canvasHint').style.opacity = '0';
+}
+
+function draw(e) {
+  if (!isDrawing || currentMode !== 'draw') return;
+  const [x,y] = getPos(e);
+
+  if (currentTool === 'line') {
+    // Preview: redraw from strokes then draw live line
+    redrawFromStrokes();
+    ctx.beginPath();
+    ctx.moveTo(lineStartX, lineStartY);
+    ctx.lineTo(x, y);
+    applyCtxStroke(currentColor, brushSize);
+    if (symmetryMode) {
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - lineStartX, lineStartY);
+      ctx.lineTo(canvas.width - x, y);
+      applyCtxStroke(currentColor, brushSize);
+    }
+    // Update endpoint in currentStroke for preview
+    if (currentStroke) currentStroke.points[1] = {x,y};
+  } else {
+    // Pen / eraser — stream draw
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    if (currentTool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.strokeStyle = 'rgba(0,0,0,1)';
+      ctx.lineWidth   = brushSize * 4;
+      ctx.lineCap = ctx.lineJoin = 'round';
+      ctx.stroke();
+      ctx.globalCompositeOperation = 'source-over';
+    } else {
+      applyCtxStroke(currentColor, brushSize);
+    }
+
+    if (symmetryMode && currentTool !== 'eraser') {
+      ctx.beginPath();
+      ctx.moveTo(canvas.width-lastX, lastY);
+      ctx.lineTo(canvas.width-x, y);
+      applyCtxStroke(currentColor, brushSize);
+    }
+
+    if (currentStroke) currentStroke.points.push({x,y});
+    lastX = x; lastY = y;
+  }
+}
+
+function applyCtxStroke(color, size) {
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.strokeStyle = color;
+  ctx.lineWidth   = size;
+  ctx.lineCap = ctx.lineJoin = 'round';
+  ctx.stroke();
+}
+
+function endDraw() {
+  if (!isDrawing) return;
+  isDrawing = false;
+
+  if (currentStroke) {
+    if (currentTool === 'line') {
+      // Also save mirrored version as separate stroke
+      vectorStrokes.push(JSON.parse(JSON.stringify(currentStroke)));
+      if (symmetryMode) {
+        const mirStroke = JSON.parse(JSON.stringify(currentStroke));
+        mirStroke.points = mirStroke.points.map(p => ({x: canvas.width - p.x, y: p.y}));
+        vectorStrokes.push(mirStroke);
+      }
+    } else if (currentStroke.points.length > 1) {
+      vectorStrokes.push(JSON.parse(JSON.stringify(currentStroke)));
+      if (symmetryMode && currentTool === 'pen') {
+        const mirStroke = JSON.parse(JSON.stringify(currentStroke));
+        mirStroke.points = mirStroke.points.map(p => ({x: canvas.width - p.x, y: p.y}));
+        vectorStrokes.push(mirStroke);
+      }
+    }
+    currentStroke = null;
+  }
+
+  saveHistory();
+  document.getElementById('canvasInfo').textContent = `500 × 500 px · Draw mode · ${vectorStrokes.length} stroke(s)`;
+}
+
+// ============================================================
+//  DRAW STROKES ONTO A CONTEXT (used for canvas & thumbnails)
+// ============================================================
+function drawStrokesOnCtx(c, strokes, scale=1) {
+  c.clearRect(0, 0, c.canvas.width, c.canvas.height);
+  c.fillStyle = '#FFFFFF';
+  c.fillRect(0, 0, c.canvas.width, c.canvas.height);
+
+  strokes.forEach(stroke => {
+    if (!stroke.points || stroke.points.length < 2) return;
+    c.beginPath();
+
+    if (stroke.tool === 'eraser') {
+      c.globalCompositeOperation = 'destination-out';
+      c.strokeStyle = 'rgba(0,0,0,1)';
+      c.lineWidth   = stroke.size * scale;
+    } else {
+      c.globalCompositeOperation = 'source-over';
+      c.strokeStyle = stroke.color;
+      c.lineWidth   = stroke.size * scale;
+    }
+    c.lineCap = c.lineJoin = 'round';
+
+    if (stroke.tool === 'line') {
+      c.moveTo(stroke.points[0].x * scale, stroke.points[0].y * scale);
+      c.lineTo(stroke.points[1].x * scale, stroke.points[1].y * scale);
+    } else {
+      c.moveTo(stroke.points[0].x * scale, stroke.points[0].y * scale);
+      for (let i=1; i<stroke.points.length; i++) {
+        c.lineTo(stroke.points[i].x * scale, stroke.points[i].y * scale);
+      }
+    }
+    c.stroke();
+    c.globalCompositeOperation = 'source-over';
+  });
+}
+
+function redrawFromStrokes() {
+  drawStrokesOnCtx(ctx, vectorStrokes, 1);
+}
+
+// ============================================================
+//  TOOLS
+// ============================================================
+function setTool(t) {
+  currentTool = t;
+  ['Pen','Line','Eraser'].forEach(id => {
+    document.getElementById('tool'+id).classList.remove('active');
+  });
+  document.getElementById('tool' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
+  canvas.style.cursor = t === 'eraser' ? 'cell' : 'crosshair';
+}
+
+function setColor(c, el) {
+  currentColor = c;
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  if (currentTool === 'eraser') setTool('pen');
+}
+
+function updateBrushSize(v) {
+  brushSize = parseInt(v);
+  document.getElementById('brushSizeVal').textContent = v;
+}
+
+function toggleMirror() {
+  symmetryMode = !symmetryMode;
+  const btn = document.getElementById('mirrorBtn');
+  btn.classList.toggle('active', symmetryMode);
+  showToast(symmetryMode ? 'Mirror symmetry ON' : 'Mirror symmetry OFF');
+}
+
+// ============================================================
+//  CANVAS HISTORY (for Undo)
+// ============================================================
+function saveHistory() {
+  // Store a deep copy of vectorStrokes
+  canvasHistory.push(JSON.parse(JSON.stringify(vectorStrokes)));
+  if (canvasHistory.length > 40) canvasHistory.shift();
+}
+
+function undoCanvas() {
+  if (canvasHistory.length < 2) { showToast('Nothing to undo'); return; }
+  canvasHistory.pop(); // remove current state
+  vectorStrokes = JSON.parse(JSON.stringify(canvasHistory[canvasHistory.length - 1]));
+  redrawFromStrokes();
+  document.getElementById('canvasInfo').textContent = `500 × 500 px · Draw mode · ${vectorStrokes.length} stroke(s)`;
+}
+
+function clearCanvas() {
+  vectorStrokes = [];
+  clearCanvasSilent();
+  saveHistory();
+  resetGCode();
+  document.getElementById('canvasHint').style.opacity = '1';
+  document.getElementById('canvasInfo').textContent = '500 × 500 px · Draw mode';
+}
+
+function clearCanvasSilent() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function confirmClear() {
+  document.getElementById('modalIcon').textContent = '⚠️';
+  document.getElementById('modalTitle').textContent = 'Reset Canvas';
+  document.getElementById('modalMsg').textContent = 'This will clear all strokes. Are you sure?';
+  document.getElementById('modalInput').style.display = 'none';
+  document.getElementById('modalConfirm').textContent = 'Clear';
+  document.getElementById('modalConfirm').onclick = () => { clearCanvas(); closeModal(); };
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+// ============================================================
+//  ZOOM
+// ============================================================
+function zoomIn()  { currentZoom = Math.min(currentZoom+0.15, 2.5); canvas.style.transform = `scale(${currentZoom})`; }
+function zoomOut() { currentZoom = Math.max(currentZoom-0.15, 0.4); canvas.style.transform = `scale(${currentZoom})`; }
+
+// ============================================================
+//  TRUE VECTOR SVG EXPORT
+// ============================================================
+function exportSVG() {
+  if (vectorStrokes.length === 0) { showToast('Draw something first'); return; }
+
+  let pathElements = '';
+  vectorStrokes.forEach(stroke => {
+    if (!stroke.points || stroke.points.length < 2) return;
+
+    const color = stroke.tool === 'eraser' ? 'none' : stroke.color;
+    const w     = stroke.size;
+
+    if (stroke.tool === 'line') {
+      const p0 = stroke.points[0];
+      const p1 = stroke.points[1];
+      pathElements += `  <line x1="${p0.x.toFixed(2)}" y1="${p0.y.toFixed(2)}" x2="${p1.x.toFixed(2)}" y2="${p1.y.toFixed(2)}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>\n`;
+    } else if (stroke.tool === 'eraser') {
+      // Erasers represented as white polyline
+      const pts = stroke.points.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+      pathElements += `  <polyline points="${pts}" stroke="#FFFFFF" stroke-width="${stroke.size*4}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n`;
+    } else {
+      // Pen stroke: build smooth polyline
+      const pts = stroke.points.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ');
+      pathElements += `  <polyline points="${pts}" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n`;
+    }
+  });
+
+  const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="500" height="500" viewBox="0 0 500 500">
+  <!-- Orang Ulu Pattern Studio — True Vector Export -->
+  <!-- Generated: ${new Date().toISOString()} -->
+  <!-- Strokes: ${vectorStrokes.length} -->
+  <!-- Compatible with svg2gcode tools -->
+  <rect width="500" height="500" fill="white"/>
+${pathElements}</svg>`;
+
+  download('orang_ulu_pattern.svg', svgContent, 'image/svg+xml');
+  showToast('True vector SVG exported — ready for svg2gcode ✓');
+}
+
+// ============================================================
+//  G-CODE GENERATION — from vector strokes
+// ============================================================
+function generateGCode() {
+  if (vectorStrokes.length === 0) {
+    showToast('Draw a pattern first'); return;
+  }
+
+  const fabricW = 350, fabricH = 350; // H-Bot work area mm
+  const scaleX  = fabricW / canvas.width;
+  const scaleY  = fabricH / canvas.height;
+
+  let lines = [];
+  lines.push(`; ============================================`);
+  lines.push(`; Orang Ulu Pattern Studio — G-Code Output`);
+  lines.push(`; Generated: ${new Date().toLocaleString()}`);
+  lines.push(`; Work area: ${fabricW}x${fabricH}mm`);
+  lines.push(`; Strokes: ${vectorStrokes.length}`);
+  lines.push(`; Machine: H-Bot XY Plotter (Grbl/ESP32)`);
+  lines.push(`; ============================================`);
+  lines.push(``);
+  lines.push(`G21        ; millimeter units`);
+  lines.push(`G90        ; absolute positioning`);
+  lines.push(`G28        ; home all axes`);
+  lines.push(`M3 S0      ; chalk wheel up`);
+  lines.push(`F800       ; feed rate 800 mm/min`);
+  lines.push(``);
+  lines.push(`; --- Begin pattern ---`);
+
+  vectorStrokes.forEach((stroke, i) => {
+    if (!stroke.points || stroke.points.length < 2) return;
+    if (stroke.tool === 'eraser') return; // skip erasers in gcode
+
+    lines.push(``);
+    lines.push(`; Stroke ${i+1} (${stroke.tool})`);
+
+    const pts = stroke.tool === 'line'
+      ? [stroke.points[0], stroke.points[1]]
+      : stroke.points;
+
+    // Move to start
+    const sx = (pts[0].x * scaleX).toFixed(2);
+    const sy = (pts[0].y * scaleY).toFixed(2);
+    lines.push(`G0 X${sx} Y${sy}`);
+    lines.push(`M3 S255    ; lower chalk`);
+
+    // Draw through points (downsample pen strokes to reduce file size)
+    const step = stroke.tool === 'pen' ? Math.max(1, Math.floor(pts.length/60)) : 1;
+    for (let j = step; j < pts.length; j += step) {
+      const gx = (pts[j].x * scaleX).toFixed(2);
+      const gy = (pts[j].y * scaleY).toFixed(2);
+      lines.push(`G1 X${gx} Y${gy}`);
+    }
+    // Ensure last point
+    const ex = (pts[pts.length-1].x * scaleX).toFixed(2);
+    const ey = (pts[pts.length-1].y * scaleY).toFixed(2);
+    lines.push(`G1 X${ex} Y${ey}`);
+    lines.push(`M5 S0      ; lift chalk`);
+  });
+
+  lines.push(``);
+  lines.push(`; --- End pattern ---`);
+  lines.push(`G0 X0 Y0   ; return home`);
+  lines.push(`M2         ; end program`);
+
+  gcodeContent = lines.join('\n');
+  gcodeReady   = true;
+
+  const highlighted = lines.map(l => {
+    if (l.startsWith(';') || l === '') return `<span class="gcode-line-comment">${escHtml(l)}</span>`;
+    if (l.startsWith('G0') || l.startsWith('G1')) return `<span class="gcode-line-move">${escHtml(l)}</span>`;
+    return `<span class="gcode-line-cmd">${escHtml(l)}</span>`;
+  }).join('<br>');
+
+  document.getElementById('gcodeBox').innerHTML = highlighted;
+  document.getElementById('sendBtn').disabled = false;
+  document.getElementById('sendStatus').textContent = `${lines.length} lines ready — enter ESP32 IP and send.`;
+  setStep(3);
+  showToast(`G-code generated — ${lines.length} lines ✓`);
+}
+
+function resetGCode() {
+  gcodeReady   = false;
+  gcodeContent = '';
+  document.getElementById('gcodeBox').innerHTML = `
+    <span class="gcode-line-comment">; G-code will appear here after generation.</span><br><br>
+    <span class="gcode-line-comment">; 1. Draw or load a motif</span><br>
+    <span class="gcode-line-comment">; 2. Click Generate G-Code</span><br>
+    <span class="gcode-line-comment">; 3. Send to ESP32 H-Bot</span>`;
+  document.getElementById('sendBtn').disabled = true;
+  document.getElementById('sendStatus').textContent = 'Generate G-code first, then send.';
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function copyGCode() {
+  if (!gcodeContent) { showToast('Generate G-code first'); return; }
+  navigator.clipboard.writeText(gcodeContent).then(() => showToast('G-code copied to clipboard ✓'));
+}
+
+function downloadGCode() {
+  if (!gcodeContent) { showToast('Generate G-code first'); return; }
+  download('orang_ulu_pattern.nc', gcodeContent, 'text/plain');
+  showToast('G-code .nc file downloaded ✓');
+}
+
+// ============================================================
+//  SEND TO ROBOT (WebSocket to ESP32 Grbl)
+// ============================================================
+async function sendToRobot() {
+  if (!gcodeReady) { showToast('Generate G-code first'); return; }
+  const ip = document.getElementById('espIpInput').value.trim();
+  if (!ip)  { showToast('Enter ESP32 IP address'); return; }
+
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  btn.textContent = 'Connecting…';
+  document.getElementById('sendStatus').textContent = 'Connecting to ESP32…';
+
+  try {
+    const ws = new WebSocket(`ws://${ip}:81`);
+    const gcodeLines = gcodeContent.split('\n').filter(l => l.trim() && !l.startsWith(';'));
+
+    ws.onopen = () => {
+      btn.textContent = 'Sending…';
+      document.getElementById('sendStatus').textContent = `Connected — sending ${gcodeLines.length} lines…`;
+      setStep(4);
+      let i = 0;
+      const sendNext = () => {
+        if (i >= gcodeLines.length) {
+          document.getElementById('sendStatus').textContent = `✓ All ${gcodeLines.length} lines sent successfully`;
+          btn.textContent = '✓ Sent';
+          showToast('G-code sent to robot! ✓');
+          ws.close();
+          return;
+        }
+        ws.send(gcodeLines[i] + '\n');
+        document.getElementById('sendStatus').textContent = `Sending line ${i+1}/${gcodeLines.length}…`;
+        i++;
+        setTimeout(sendNext, 20);
+      };
+      setTimeout(sendNext, 500);
+    };
+    ws.onerror = () => {
+      document.getElementById('sendStatus').textContent = '⚠ Could not connect — check IP and network';
+      btn.textContent = '▶ Send to H-Bot Robot';
+      btn.disabled = false;
+      showToast('Connection failed — is the ESP32 online?');
+    };
+  } catch(err) {
+    document.getElementById('sendStatus').textContent = 'Error: ' + err.message;
+    btn.textContent = '▶ Send to H-Bot Robot';
+    btn.disabled = false;
+  }
+}
+
+// ============================================================
+//  STEP INDICATOR
+// ============================================================
+function setStep(n) {
+  for (let i=1; i<=4; i++) {
+    document.getElementById('step'+i).classList.toggle('active', i===n);
+  }
+}
+
+// ============================================================
+//  UTILITIES
+// ============================================================
+function download(filename, content, type) {
+  const blob = new Blob([content], {type});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// ============================================================
+//  START
+// ============================================================
+init();
+</script>
+</body>
+</html>
