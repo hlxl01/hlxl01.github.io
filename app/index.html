@@ -865,7 +865,7 @@ input[type=range]::-webkit-slider-thumb {
   <div class="modal">
     <div class="modal-icon" id="modalIcon">💾</div>
     <h2 id="modalTitle">Save Motif</h2>
-    <p id="modalMsg">Give this motif a name for your Heritage Library.</p>
+    <p id="modalMsg">Give this motif a name for your Motif Library.</p>
     <input type="text" id="modalInput" placeholder="e.g. Aso Motif" style="display:none;">
     <div class="modal-btns">
       <button class="modal-btn" onclick="closeModal()">Cancel</button>
@@ -1007,7 +1007,7 @@ function saveToLibrary() {
   }
   // Show name prompt modal
   document.getElementById('modalIcon').textContent = '💾';
-  document.getElementById('modalTitle').textContent = 'Save to Heritage Library';
+  document.getElementById('modalTitle').textContent = 'Save to Motif Library';
   document.getElementById('modalMsg').textContent = 'Give this motif a name:';
   document.getElementById('modalInput').style.display = 'block';
   document.getElementById('modalInput').value = '';
@@ -1373,7 +1373,7 @@ function generateGCode() {
     showToast('Draw a pattern first'); return;
   }
 
-  const fabricW = 350, fabricH = 350; // H-Bot work area mm
+  const fabricW = 350, fabricH = 350; 
   const scaleX  = fabricW / canvas.width;
   const scaleY  = fabricH / canvas.height;
 
