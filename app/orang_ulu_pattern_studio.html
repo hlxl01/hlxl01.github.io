@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orang Ulu Pattern Studio</title>
+<title>HeriTech Pattern Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -51,93 +51,6 @@ body {
     var(--bone) 30px, var(--bone) 40px
   );
 }
-
-<!-- ============ ONBOARDING TUTORIAL POPUP ============ -->
-<div class="tutorial-overlay" id="tutorialOverlay">
-  <div class="tutorial-modal" id="tutorialModal">
-    <button class="tutorial-close" id="tutorialClose" title="Close">✕</button>
-
-    <div class="tutorial-pages-wrapper">
-      <div class="tutorial-pages-track" id="tutorialTrack">
-
-        <!-- PAGE 1 -->
-        <div class="tutorial-page">
-          <div class="tutorial-img-slot">
-            <!-- 📸 INSERT TUTORIAL IMAGE 1 HERE -->
-            <!-- e.g. <img src="tutorial-1.png" alt="Welcome"> -->
-            <span class="slot-label">Image 1</span>
-          </div>
-          <h2 class="tutorial-title">Welcome to HeriTech Pattern Studio</h2>
-          <p class="tutorial-text">Design traditional motifs, save them to your Heritage Library, and send them straight to your robot.</p>
-        </div>
-
-        <!-- PAGE 2 -->
-        <div class="tutorial-page">
-          <div class="tutorial-img-slot">
-            <!-- 📸 INSERT TUTORIAL IMAGE 2 HERE -->
-            <span class="slot-label">Image 2</span>
-          </div>
-          <h2 class="tutorial-title">Switch to Draw Mode</h2>
-          <p class="tutorial-text">Click the "Draw" tab on the left panel to access the pen, line, and eraser tools.</p>
-        </div>
-
-        <!-- PAGE 3 -->
-        <div class="tutorial-page">
-          <div class="tutorial-img-slot">
-            <!-- 📸 INSERT TUTORIAL IMAGE 3 HERE -->
-            <span class="slot-label">Image 3</span>
-          </div>
-          <h2 class="tutorial-title">Draw Your Motif</h2>
-          <p class="tutorial-text">Use the canvas to sketch your pattern. Try Mirror mode for symmetrical Orang Ulu designs.</p>
-        </div>
-
-        <!-- PAGE 4 -->
-        <div class="tutorial-page">
-          <div class="tutorial-img-slot">
-            <!-- 📸 INSERT TUTORIAL IMAGE 4 HERE -->
-            <span class="slot-label">Image 4</span>
-          </div>
-          <h2 class="tutorial-title">Save to Your Library</h2>
-          <p class="tutorial-text">Click "Save to Library", give your motif a name, and it appears as a card you can reload anytime.</p>
-        </div>
-
-        <!-- PAGE 5 -->
-        <div class="tutorial-page">
-          <div class="tutorial-img-slot">
-            <!-- 📸 INSERT TUTORIAL IMAGE 5 HERE -->
-            <span class="slot-label">Image 5</span>
-          </div>
-          <h2 class="tutorial-title">Generate & Send G-Code</h2>
-          <p class="tutorial-text">Click "Generate G-Code", enter your robot's IP address, then press "Send to Robot" to start drawing.</p>
-        </div>
-
-        <!-- PAGE 6 — VIDEO DEMO -->
-        <div class="tutorial-page">
-          <div class="tutorial-video-slot">
-            <!-- 🎥 INSERT DEMO VIDEO HERE -->
-            <!-- e.g. <video controls src="demo.mp4"></video> -->
-            <!-- or <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe> -->
-            <span class="slot-label">Demo Video</span>
-          </div>
-          <h2 class="tutorial-title">See It In Action</h2>
-          <p class="tutorial-text">Watch a full walkthrough of designing a motif and sending it to the robot.</p>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="tutorial-footer">
-      <button class="tutorial-arrow" id="tutorialPrev">←</button>
-      <div class="tutorial-dots" id="tutorialDots"></div>
-      <button class="tutorial-arrow" id="tutorialNext">→</button>
-    </div>
-
-    <button class="tutorial-skip" id="tutorialSkip">Skip to Demo ⏭</button>
-  </div>
-</div>
-
-<!-- Small reopen button — popup animates down into this -->
-<button class="tutorial-reopen" id="tutorialReopen" title="Show tutorial">?</button>
 
 /* ============================================================
    HEADER
@@ -797,8 +710,16 @@ input[type=range]::-webkit-slider-thumb {
   white-space: nowrap;
   border-left: 4px solid var(--gold);
 }
+.toast.show { opacity: 1; }
 
-/* ============ TUTORIAL POPUP ============ */
+/* Scrollbar global */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+/* ============================================================
+   TUTORIAL POPUP
+   ============================================================ */
 .tutorial-overlay {
   position: fixed;
   inset: 0;
@@ -835,6 +756,7 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 0.8rem;
   cursor: pointer;
   z-index: 5;
+  font-family: 'Outfit', sans-serif;
 }
 .tutorial-close:hover { background: var(--crimson); color: white; border-color: var(--crimson); }
 
@@ -917,10 +839,12 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
+  font-family: 'Outfit', sans-serif;
 }
 .tutorial-arrow:hover { background: var(--gold); border-color: var(--gold); }
 .tutorial-arrow:disabled { opacity: 0.3; cursor: default; }
 .tutorial-arrow:disabled:hover { background: transparent; border-color: var(--black); }
+.tutorial-arrow.hidden { display: none; }
 
 .tutorial-dots { display: flex; gap: 6px; }
 .t-dot {
@@ -945,6 +869,16 @@ input[type=range]::-webkit-slider-thumb {
   padding: 5px 12px;
   cursor: pointer;
   text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.tutorial-skip.show {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
 }
 .tutorial-skip:hover { background: #E6A600; }
 
@@ -965,21 +899,99 @@ input[type=range]::-webkit-slider-thumb {
   pointer-events: none;
   transition: opacity 0.3s;
   z-index: 20;
+  font-family: 'Outfit', sans-serif;
 }
 .tutorial-reopen.show { opacity: 1; pointer-events: all; }
 .tutorial-reopen:hover { background: #E6A600; }
-
-.toast.show { opacity: 1; }
-
-/* Scrollbar global */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
 </style>
 </head>
 <body>
 
 <div class="accent-bar"></div>
+
+<!-- ============ ONBOARDING TUTORIAL POPUP ============ -->
+<div class="tutorial-overlay" id="tutorialOverlay">
+  <div class="tutorial-modal" id="tutorialModal">
+    <button class="tutorial-close" id="tutorialClose" title="Close">✕</button>
+
+    <div class="tutorial-pages-wrapper">
+      <div class="tutorial-pages-track" id="tutorialTrack">
+
+        <!-- PAGE 1 -->
+        <div class="tutorial-page">
+          <div class="tutorial-img-slot">
+            <!-- 📸 INSERT TUTORIAL IMAGE 1 HERE -->
+            <!-- e.g. <img src="tutorial-1.png" alt="Welcome"> -->
+            <span class="slot-label">Image 1</span>
+          </div>
+          <h2 class="tutorial-title">Welcome to HeriTech Pattern Studio</h2>
+          <p class="tutorial-text">Design traditional motifs, save them to your Heritage Library, and send them straight to your robot.</p>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="tutorial-page">
+          <div class="tutorial-img-slot">
+            <!-- 📸 INSERT TUTORIAL IMAGE 2 HERE -->
+            <span class="slot-label">Image 2</span>
+          </div>
+          <h2 class="tutorial-title">Switch to Draw Mode</h2>
+          <p class="tutorial-text">Click the "Draw" tab on the left panel to access the pen, line, and eraser tools.</p>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="tutorial-page">
+          <div class="tutorial-img-slot">
+            <!-- 📸 INSERT TUTORIAL IMAGE 3 HERE -->
+            <span class="slot-label">Image 3</span>
+          </div>
+          <h2 class="tutorial-title">Draw Your Motif</h2>
+          <p class="tutorial-text">Use the canvas to sketch your pattern. Try Mirror mode for symmetrical HeriTech designs.</p>
+        </div>
+
+        <!-- PAGE 4 -->
+        <div class="tutorial-page">
+          <div class="tutorial-img-slot">
+            <!-- 📸 INSERT TUTORIAL IMAGE 4 HERE -->
+            <span class="slot-label">Image 4</span>
+          </div>
+          <h2 class="tutorial-title">Save to Your Library</h2>
+          <p class="tutorial-text">Click "Save to Library", give your motif a name, and it appears as a card you can reload anytime.</p>
+        </div>
+
+        <!-- PAGE 5 -->
+        <div class="tutorial-page">
+          <div class="tutorial-img-slot">
+            <!-- 📸 INSERT TUTORIAL IMAGE 5 HERE -->
+            <span class="slot-label">Image 5</span>
+          </div>
+          <h2 class="tutorial-title">Generate & Send G-Code</h2>
+          <p class="tutorial-text">Click "Generate G-Code", enter your robot's IP address, then press "Send to Robot" to start drawing.</p>
+        </div>
+
+        <!-- PAGE 6 — VIDEO DEMO -->
+        <div class="tutorial-page">
+          <div class="tutorial-video-slot">
+            <!-- 🎥 INSERT DEMO VIDEO HERE -->
+            <!-- e.g. <video controls src="demo.mp4"></video> -->
+            <!-- or <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe> -->
+            <span class="slot-label">Demo Video</span>
+          </div>
+          <h2 class="tutorial-title">See It In Action</h2>
+          <p class="tutorial-text">Watch a full walkthrough of designing a motif and sending it to the robot.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tutorial-footer">
+      <button class="tutorial-arrow" id="tutorialPrev">←</button>
+      <div class="tutorial-dots" id="tutorialDots"></div>
+      <button class="tutorial-arrow" id="tutorialNext">→</button>
+    </div>
+
+    <button class="tutorial-skip" id="tutorialSkip">Start Designing →</button>
+  </div>
+</div>
 
 <header>
   <div class="logo">
@@ -993,8 +1005,8 @@ input[type=range]::-webkit-slider-thumb {
       <circle cx="29" cy="11" r="2" fill="#8B0000"/>
     </svg>
     <div class="logo-text">
-      <h1>HeriTech Pattern Design Studio</h1>
-      <p>By Ulu Guardians · Future Innovate 2026</p>
+      <h1>HeriTech Pattern Studio</h1>
+      <p>Cultural Beadwork Automation System · Sarawak</p>
     </div>
   </div>
   <div class="header-steps">
@@ -1008,7 +1020,7 @@ input[type=range]::-webkit-slider-thumb {
 <main>
   <!-- ===== LEFT PANEL — Heritage Library ===== -->
   <div class="left-panel">
-    <div class="panel-title">Library</div>
+    <div class="panel-title">Heritage Library</div>
 
     <div class="mode-toggle">
       <button class="mode-btn active" id="modeLibBtn" onclick="setMode('library')">📚 Library</button>
@@ -1058,8 +1070,8 @@ input[type=range]::-webkit-slider-thumb {
       </div>
     </div>
 
+    <!-- Tutorial reopen button — pinned bottom-right of left panel -->
     <button class="tutorial-reopen" id="tutorialReopen" title="Show tutorial">?</button>
-
   </div>
 
   <!-- ===== CENTRE CANVAS ===== -->
@@ -1095,14 +1107,14 @@ input[type=range]::-webkit-slider-thumb {
         </div>
       </div>
       <div class="gcode-box" id="gcodeBox">
-        <span class="gcode-line-comment">; HeriTech Pattern Design Studio</span><br>
+        <span class="gcode-line-comment">; HeriTech Pattern Studio</span><br>
         <span class="gcode-line-comment">; G-code will appear here</span><br>
         <span class="gcode-line-comment">; after generation.</span><br><br>
         <span class="gcode-line-comment">; Workflow:</span><br>
         <span class="gcode-line-comment">; 1. Draw a motif on the canvas</span><br>
         <span class="gcode-line-comment">; 2. Save to Library</span><br>
         <span class="gcode-line-comment">; 3. Click Generate G-Code</span><br>
-        <span class="gcode-line-comment">; 4. Send to ESP32 HeriTech</span>
+        <span class="gcode-line-comment">; 4. Send to ESP32 H-Bot</span>
       </div>
       <div class="gen-btn-row">
         <button class="gen-btn" onclick="generateGCode()">▶ Generate G-Code</button>
@@ -1128,7 +1140,7 @@ input[type=range]::-webkit-slider-thumb {
   <div class="modal">
     <div class="modal-icon" id="modalIcon">💾</div>
     <h2 id="modalTitle">Save Motif</h2>
-    <p id="modalMsg">Give this motif a name for your Motif Library.</p>
+    <p id="modalMsg">Give this motif a name for your Heritage Library.</p>
     <input type="text" id="modalInput" placeholder="e.g. Aso Motif" style="display:none;">
     <div class="modal-btns">
       <button class="modal-btn" onclick="closeModal()">Cancel</button>
@@ -1270,7 +1282,7 @@ function saveToLibrary() {
   }
   // Show name prompt modal
   document.getElementById('modalIcon').textContent = '💾';
-  document.getElementById('modalTitle').textContent = 'Save to Motif Library';
+  document.getElementById('modalTitle').textContent = 'Save to Heritage Library';
   document.getElementById('modalMsg').textContent = 'Give this motif a name:';
   document.getElementById('modalInput').style.display = 'block';
   document.getElementById('modalInput').value = '';
@@ -1303,104 +1315,6 @@ document.addEventListener('keydown', e => {
   }
   if (e.key === 'Escape') closeModal();
 });
-
-// ============================================================
-//  TUTORIAL POPUP
-// ============================================================
-const TUTORIAL_PAGES = 6;
-let tCur = 0;
-
-function buildTutorialDots() {
-  const dotsEl = document.getElementById('tutorialDots');
-  for (let i = 0; i < TUTORIAL_PAGES; i++) {
-    const d = document.createElement('div');
-    d.className = 't-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => tutorialGoTo(i);
-    dotsEl.appendChild(d);
-  }
-}
-
-function tutorialGoTo(n) {
-  if (n < 0 || n >= TUTORIAL_PAGES) return;
-  tCur = n;
-  document.getElementById('tutorialTrack').style.transform = `translateX(-${tCur * 100}%)`;
-  document.querySelectorAll('.t-dot').forEach((d, i) => d.classList.toggle('active', i === tCur));
-  document.getElementById('tutorialPrev').disabled = (tCur === 0);
-  document.getElementById('tutorialNext').disabled = (tCur === TUTORIAL_PAGES - 1);
-}
-
-function closeTutorial() {
-  const modal   = document.getElementById('tutorialModal');
-  const overlay = document.getElementById('tutorialOverlay');
-  const target  = document.getElementById('tutorialReopen');
-
-  const modalRect  = modal.getBoundingClientRect();
-  const targetRect = target.getBoundingClientRect();
-
-  const dx = (targetRect.left + targetRect.width / 2)  - (modalRect.left + modalRect.width / 2);
-  const dy = (targetRect.top  + targetRect.height / 2) - (modalRect.top  + modalRect.height / 2);
-  const scale = targetRect.width / modalRect.width;
-
-  modal.style.transition = 'transform 0.55s cubic-bezier(.4,0,.2,1), opacity 0.55s';
-  modal.style.transform  = `translate(${dx}px, ${dy}px) scale(${scale})`;
-  modal.style.opacity    = '0';
-
-  setTimeout(() => {
-    overlay.classList.remove('show');
-    modal.style.transition = '';
-    modal.style.transform  = '';
-    modal.style.opacity    = '';
-    target.classList.add('show');
-  }, 550);
-}
-
-function openTutorial() {
-  const modal   = document.getElementById('tutorialModal');
-  const overlay = document.getElementById('tutorialOverlay');
-  const target  = document.getElementById('tutorialReopen');
-
-  const targetRect = target.getBoundingClientRect();
-  target.classList.remove('show');
-  overlay.classList.add('show');
-
-  const modalRect = modal.getBoundingClientRect();
-  const dx = (targetRect.left + targetRect.width / 2)  - (modalRect.left + modalRect.width / 2);
-  const dy = (targetRect.top  + targetRect.height / 2) - (modalRect.top  + modalRect.height / 2);
-  const scale = targetRect.width / modalRect.width;
-
-  modal.style.transition = 'none';
-  modal.style.transform  = `translate(${dx}px, ${dy}px) scale(${scale})`;
-  modal.style.opacity    = '0';
-  void modal.offsetWidth; // force reflow
-  modal.style.transition = 'transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s';
-  modal.style.transform  = 'translate(0,0) scale(1)';
-  modal.style.opacity    = '1';
-}
-
-function setupTutorial() {
-  buildTutorialDots();
-  tutorialGoTo(0);
-
-  document.getElementById('tutorialPrev').onclick = () => tutorialGoTo(tCur - 1);
-  document.getElementById('tutorialNext').onclick = () => tutorialGoTo(tCur + 1);
-  document.getElementById('tutorialSkip').onclick = () => tutorialGoTo(TUTORIAL_PAGES - 1);
-  document.getElementById('tutorialClose').onclick = closeTutorial;
-  document.getElementById('tutorialReopen').onclick = openTutorial;
-
-  // Swipe support
-  let tx = 0;
-  const track = document.getElementById('tutorialTrack');
-  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
-  track.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - tx;
-    if (Math.abs(dx) > 50) tutorialGoTo(tCur + (dx < 0 ? 1 : -1));
-  });
-
-  // Auto-show on page load
-  document.getElementById('tutorialOverlay').classList.add('show');
-}
-
-setupTutorial();
 
 // ============================================================
 //  INIT
@@ -1715,7 +1629,7 @@ function exportSVG() {
   const svgContent = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
      width="500" height="500" viewBox="0 0 500 500">
-  <!-- Orang Ulu Pattern Studio — True Vector Export -->
+  <!-- HeriTech Pattern Studio — True Vector Export -->
   <!-- Generated: ${new Date().toISOString()} -->
   <!-- Strokes: ${vectorStrokes.length} -->
   <!-- Compatible with svg2gcode tools -->
@@ -1734,13 +1648,13 @@ function generateGCode() {
     showToast('Draw a pattern first'); return;
   }
 
-  const fabricW = 350, fabricH = 350; 
+  const fabricW = 350, fabricH = 350; // H-Bot work area mm
   const scaleX  = fabricW / canvas.width;
   const scaleY  = fabricH / canvas.height;
 
   let lines = [];
   lines.push(`; ============================================`);
-  lines.push(`; Orang Ulu Pattern Studio — G-Code Output`);
+  lines.push(`; HeriTech Pattern Studio — G-Code Output`);
   lines.push(`; Generated: ${new Date().toLocaleString()}`);
   lines.push(`; Work area: ${fabricW}x${fabricH}mm`);
   lines.push(`; Strokes: ${vectorStrokes.length}`);
@@ -1914,6 +1828,105 @@ function showToast(msg) {
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('show');
 }
+
+// ============================================================
+//  TUTORIAL POPUP
+// ============================================================
+const TUTORIAL_PAGES = 6;
+let tCur = 0;
+
+function buildTutorialDots() {
+  const dotsEl = document.getElementById('tutorialDots');
+  for (let i = 0; i < TUTORIAL_PAGES; i++) {
+    const d = document.createElement('div');
+    d.className = 't-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => tutorialGoTo(i);
+    dotsEl.appendChild(d);
+  }
+}
+
+function tutorialGoTo(n) {
+  if (n < 0 || n >= TUTORIAL_PAGES) return;
+  tCur = n;
+  document.getElementById('tutorialTrack').style.transform = `translateX(-${tCur * 100}%)`;
+  document.querySelectorAll('.t-dot').forEach((d, i) => d.classList.toggle('active', i === tCur));
+  document.getElementById('tutorialPrev').disabled = (tCur === 0);
+  document.getElementById('tutorialNext').classList.toggle('hidden', tCur === TUTORIAL_PAGES - 1);
+  document.getElementById('tutorialSkip').classList.toggle('show', tCur === TUTORIAL_PAGES - 1);
+}
+
+function closeTutorial() {
+  const modal   = document.getElementById('tutorialModal');
+  const overlay = document.getElementById('tutorialOverlay');
+  const target  = document.getElementById('tutorialReopen');
+
+  const modalRect  = modal.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+
+  const dx = (targetRect.left + targetRect.width / 2)  - (modalRect.left + modalRect.width / 2);
+  const dy = (targetRect.top  + targetRect.height / 2) - (modalRect.top  + modalRect.height / 2);
+  const scale = targetRect.width / modalRect.width;
+
+  modal.style.transition = 'transform 0.55s cubic-bezier(.4,0,.2,1), opacity 0.55s';
+  modal.style.transform  = `translate(${dx}px, ${dy}px) scale(${scale})`;
+  modal.style.opacity    = '0';
+
+  setTimeout(() => {
+    overlay.classList.remove('show');
+    modal.style.transition = '';
+    modal.style.transform  = '';
+    modal.style.opacity    = '';
+    target.classList.add('show');
+  }, 550);
+}
+
+function openTutorial() {
+  const modal   = document.getElementById('tutorialModal');
+  const overlay = document.getElementById('tutorialOverlay');
+  const target  = document.getElementById('tutorialReopen');
+
+  const targetRect = target.getBoundingClientRect();
+  target.classList.remove('show');
+  overlay.classList.add('show');
+
+  const modalRect = modal.getBoundingClientRect();
+  const dx = (targetRect.left + targetRect.width / 2)  - (modalRect.left + modalRect.width / 2);
+  const dy = (targetRect.top  + targetRect.height / 2) - (modalRect.top  + modalRect.height / 2);
+  const scale = targetRect.width / modalRect.width;
+
+  modal.style.transition = 'none';
+  modal.style.transform  = `translate(${dx}px, ${dy}px) scale(${scale})`;
+  modal.style.opacity    = '0';
+  void modal.offsetWidth; // force reflow
+  modal.style.transition = 'transform 0.5s cubic-bezier(.4,0,.2,1), opacity 0.5s';
+  modal.style.transform  = 'translate(0,0) scale(1)';
+  modal.style.opacity    = '1';
+}
+
+function setupTutorial() {
+  buildTutorialDots();
+  tutorialGoTo(0);
+
+  document.getElementById('tutorialPrev').onclick = () => tutorialGoTo(tCur - 1);
+  document.getElementById('tutorialNext').onclick = () => tutorialGoTo(tCur + 1);
+  document.getElementById('tutorialSkip').onclick = closeTutorial;
+  document.getElementById('tutorialClose').onclick = closeTutorial;
+  document.getElementById('tutorialReopen').onclick = openTutorial;
+
+  // Swipe support
+  let tx = 0;
+  const track = document.getElementById('tutorialTrack');
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) tutorialGoTo(tCur + (dx < 0 ? 1 : -1));
+  });
+
+  // Auto-show on page load
+  document.getElementById('tutorialOverlay').classList.add('show');
+}
+
+setupTutorial();
 
 // ============================================================
 //  START
