@@ -1114,7 +1114,7 @@ input[type=range]::-webkit-slider-thumb {
         <span class="gcode-line-comment">; 1. Draw a motif on the canvas</span><br>
         <span class="gcode-line-comment">; 2. Save to Library</span><br>
         <span class="gcode-line-comment">; 3. Click Generate G-Code</span><br>
-        <span class="gcode-line-comment">; 4. Send to ESP32 H-Bot</span>
+        <span class="gcode-line-comment">; 4. Send to ESP32 HeriTech</span>
       </div>
       <div class="gen-btn-row">
         <button class="gen-btn" onclick="generateGCode()">▶ Generate G-Code</button>
@@ -1128,7 +1128,7 @@ input[type=range]::-webkit-slider-thumb {
         <input type="text" id="espIpInput" placeholder="ESP32 IP (e.g. 192.168.1.42)" value="192.168.1.42">
       </div>
       <button class="send-btn" id="sendBtn" onclick="sendToRobot()" disabled>
-        ▶ Send to H-Bot Robot
+        ▶ Send to HeriTech Robot
       </button>
       <div class="send-status" id="sendStatus">Generate G-code first, then send.</div>
     </div>
@@ -1648,7 +1648,7 @@ function generateGCode() {
     showToast('Draw a pattern first'); return;
   }
 
-  const fabricW = 350, fabricH = 350; // H-Bot work area mm
+  const fabricW = 350, fabricH = 350; // HeriTech work area mm
   const scaleX  = fabricW / canvas.width;
   const scaleY  = fabricH / canvas.height;
 
@@ -1658,7 +1658,7 @@ function generateGCode() {
   lines.push(`; Generated: ${new Date().toLocaleString()}`);
   lines.push(`; Work area: ${fabricW}x${fabricH}mm`);
   lines.push(`; Strokes: ${vectorStrokes.length}`);
-  lines.push(`; Machine: H-Bot XY Plotter (Grbl/ESP32)`);
+  lines.push(`; Machine: HeriTech XY Plotter (Grbl/ESP32)`);
   lines.push(`; ============================================`);
   lines.push(``);
   lines.push(`G21        ; millimeter units`);
@@ -1728,7 +1728,7 @@ function resetGCode() {
     <span class="gcode-line-comment">; G-code will appear here after generation.</span><br><br>
     <span class="gcode-line-comment">; 1. Draw or load a motif</span><br>
     <span class="gcode-line-comment">; 2. Click Generate G-Code</span><br>
-    <span class="gcode-line-comment">; 3. Send to ESP32 H-Bot</span>`;
+    <span class="gcode-line-comment">; 3. Send to ESP32 HeriTech</span>`;
   document.getElementById('sendBtn').disabled = true;
   document.getElementById('sendStatus').textContent = 'Generate G-code first, then send.';
 }
@@ -1787,13 +1787,13 @@ async function sendToRobot() {
     };
     ws.onerror = () => {
       document.getElementById('sendStatus').textContent = '⚠ Could not connect — check IP and network';
-      btn.textContent = '▶ Send to H-Bot Robot';
+      btn.textContent = '▶ Send to HeriTech Robot';
       btn.disabled = false;
       showToast('Connection failed — is the ESP32 online?');
     };
   } catch(err) {
     document.getElementById('sendStatus').textContent = 'Error: ' + err.message;
-    btn.textContent = '▶ Send to H-Bot Robot';
+    btn.textContent = '▶ Send to HeriTech Robot';
     btn.disabled = false;
   }
 }
